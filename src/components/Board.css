@@ -39,3 +39,7 @@ hr {
 .vertical-line {
     border-right: 1px solid black;
 }
+
+.selected {
+    background-color: lightblue; 
+}
