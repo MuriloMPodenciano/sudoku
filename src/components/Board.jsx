@@ -23,7 +23,8 @@ const Board = () => {
             tile.id = row.toString() + "-" + column.toString();
 
             if (board[row][column] != "-" ){
-                tile.textContent = board[row][column]; 
+                tile.textContent = board[row][column];
+                tile.classList.add("tile-start"); 
             }
 
             tile.classList.add("tile");

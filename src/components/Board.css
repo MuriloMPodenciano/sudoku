@@ -27,3 +27,7 @@ hr {
     justify-content: center;
     align-items: center;
 }
+
+.tile-start {
+    background-color: rgb(235, 235, 235);
+}
