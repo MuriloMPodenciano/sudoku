@@ -90,7 +90,7 @@ app.post('/login', (req, res) => {
       if (!match) {
         return res.status(400).json({ code: 400, message: "Invalid username or password" });
       }
-      const token = jwt.sign({ username: row.username }, privateKey, { algorithm: 'RS256', expiresIn: '5m' });
+      const token = jwt.sign({ username: row.username }, privateKey, { algorithm: 'RS256', expiresIn: '1h' });
       res.status(200).json({ code: 200, message: "User logged in successfully", token });
     });
   });
