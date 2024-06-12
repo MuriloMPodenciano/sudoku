@@ -27,6 +27,13 @@ const Board = () => {
                 tile.classList.add("tile-start"); 
             }
 
+            if (row === 2 || row === 5) {
+                tile.classList.add("horizontal-line");
+            }
+            if (column === 2 || column === 5) {
+                tile.classList.add("vertical-line");
+            }
+
             tile.classList.add("tile");
             gameBoard.appendChild(tile);
           }

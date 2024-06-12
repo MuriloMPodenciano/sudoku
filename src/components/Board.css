@@ -31,3 +31,11 @@ hr {
 .tile-start {
     background-color: rgb(235, 235, 235);
 }
+
+.horizontal-line {
+    border-bottom: 1px solid black;
+}
+
+.vertical-line {
+    border-right: 1px solid black;
+}
