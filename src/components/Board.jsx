@@ -20,11 +20,13 @@ const Board = () => {
         for (let row = 0; row < 9; row++) {
           for (let column = 0; column < 9; column++) {
             const tile = document.createElement("div");
-
             tile.id = row.toString() + "-" + column.toString();
+
+            if (board[row][column] != "-" ){
+                tile.textContent = board[row][column]; 
+            }
+
             tile.classList.add("tile");
-            
-            tile.textContent = board[row][column]; 
             gameBoard.appendChild(tile);
           }
         }
