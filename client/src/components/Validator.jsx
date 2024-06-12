@@ -60,6 +60,23 @@ const Validator = ({ board, inputtedNumbers }) => {
             }
         }
 
+        // Check all diagonals
+        const diagonal1 = new Set();
+        const diagonal2 = new Set();
+        for (let i = 0; i < 9; i++) {
+            const num1 = board[i][i] !== '-' ? board[i][i] : inputtedNumbers[i][i];
+            const num2 = board[i][8 - i] !== '-' ? board[i][8 - i] : inputtedNumbers[i][8 - i];
+
+            if (num1 !== '-' && diagonal1.has(num1)) {
+                return false;
+            }
+            diagonal1.add(num1);
+            if (num2 !== '-' && diagonal2.has(num2)) {
+                return false;
+            }
+            diagonal2.add(num2);
+        }
+        
         return true;
     };
 
