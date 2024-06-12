@@ -98,8 +98,8 @@ app.post('/login', (req, res) => {
 });
 
 app.get('/board', verifyToken, (req, res) => {
-  const randomIndex = Math.floor(Math.random() * boardsData.length);
-  const randomBoard = boardsData[randomIndex];
+  const randomIndex = Math.floor(Math.random() * boardsData.boards.length);
+  const randomBoard = boardsData.boards[randomIndex];
   res.status(200).json({ code: 200, message: "Access granted to board", board: randomBoard });
 });
 
