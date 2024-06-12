@@ -7,7 +7,7 @@ const Board = () => {
     const [selectedTile, setSelectedTile] = useState([0, 0]);
     const [board, setBoard] = useState([]);
 
-    
+
     useEffect(() => {
         const fetchBoard = async () => {
             try {
@@ -106,6 +106,7 @@ const Board = () => {
         <div className='Board-div'>
             <h1>Sudoku</h1>
             <hr className='Board-hr'></hr>
+            <h4>Regras padrões do sudoku se aplicam, adicionalmente, as diagonais não podem ter números repitidos</h4>
             <div id='board' className='Board-div'></div>
             <br></br>
             <Validator board={board} inputtedNumbers={inputtedNumbers} />
