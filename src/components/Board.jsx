@@ -2,7 +2,7 @@ import React from 'react';
 import './Board.css';
 
 const Board = () => {
-    var board = [
+    const [board, setBoard] = useState([
         "-95741386",
         "467839251",
         "831256974",
@@ -12,7 +12,23 @@ const Board = () => {
         "653912874",
         "178543629",
         "924687153",
-    ]
+    ]);
+
+    useEffect(() => {
+        const gameBoard = document.getElementById('board');
+        
+        for (let row = 0; row < 9; row++) {
+          for (let column = 0; column < 9; column++) {
+            const tile = document.createElement("div");
+
+            tile.id = row.toString() + "-" + column.toString();
+            tile.classList.add("tile");
+            
+            tile.textContent = board[row][column]; 
+            gameBoard.appendChild(tile);
+          }
+        }
+      }, []);
 
     return (
         <div>
@@ -23,4 +39,4 @@ const Board = () => {
     );
 };
 
-export default Board
+export default Board;
