@@ -39,7 +39,6 @@ const Validator = ({ board, inputtedNumbers }) => {
             return true;
         };
 
-        // Check all rows
         for (let row = 0; row < 9; row++) {
             const currentRow = board[row].split('').map((num, index) => num !== '-' ? num : inputtedNumbers[row][index]);
             if (!isValidRow(currentRow)) {
@@ -47,14 +46,12 @@ const Validator = ({ board, inputtedNumbers }) => {
             }
         }
 
-        // Check all columns
         for (let col = 0; col < 9; col++) {
             if (!isValidColumn(col)) {
                 return false;
             }
         }
 
-        // Check all 3x3 boxes
         for (let row = 0; row < 9; row += 3) {
             for (let col = 0; col < 9; col += 3) {
                 if (!isValidBox(row, col)) {

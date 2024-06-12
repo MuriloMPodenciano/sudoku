@@ -7,38 +7,40 @@ const Board = () => {
     const [selectedTile, setSelectedTile] = useState([0, 0]);
     const [board, setBoard] = useState([]);
 
+    
     useEffect(() => {
         const fetchBoard = async () => {
-          try {
-            const token = localStorage.getItem('token');
-            const response = await fetch('http://localhost:8000/board', {
-              headers: {
-                Authorization: token
-              }
+            try {
+                const token = localStorage.getItem('token');
+                const response = await fetch('http://localhost:8000/board', {
+                headers: {
+                    Authorization: token
+                }
             });
     
             const data = await response.json();
             if (response.ok) {
-              setBoard(data.board);
+                setBoard(data.board);
             } else {
-              alert(data.message);
+                alert(data.message);
             }
-          } catch (error) {
+        } catch (error) {
             console.error('Error:', error);
             alert('An error occurred while fetching the board. Please try again.');
-          }
-        };
+        }
+    };
     
-        fetchBoard();
-      }, []);
+    fetchBoard();
+    }, []);
    
+
     useEffect(() => {
         const gameBoard = document.getElementById('board');
         gameBoard.innerHTML = ''; 
         
         if (board.length === 0) {
-            return; // Exit early if board is not yet fetched
-          }
+            return; 
+        }
 
         for (let row = 0; row < 9; row++) {
             for (let column = 0; column < 9; column++) {
@@ -51,7 +53,7 @@ const Board = () => {
                 tile.classList.add("tile-start"); 
             }else if (inputtedNumbers[row][column] !== "") {
                 tile.textContent = inputtedNumbers[row][column];
-              }
+            }
             tile.addEventListener('click', () => handleTileClick(row, column));
 
             if (row === 2 || row === 5) {
@@ -71,24 +73,25 @@ const Board = () => {
         }
     }, [board, selectedTile, inputtedNumbers]);
 
+
     useEffect(() => {
         const handleKeyDown = (event) => {
           if (selectedTile) {
             const [row, column] = selectedTile;
             if (event.key >= '1' && event.key <= '9') {
-              const newInputtedNumbers = [...inputtedNumbers];
-              newInputtedNumbers[row][column] = event.key;
-              setInputtedNumbers(newInputtedNumbers);
+                const newInputtedNumbers = [...inputtedNumbers];
+                newInputtedNumbers[row][column] = event.key;
+                setInputtedNumbers(newInputtedNumbers);
+                }
             }
-          }
         };
     
         document.addEventListener('keydown', handleKeyDown);
     
         return () => {
-          document.removeEventListener('keydown', handleKeyDown);
+            document.removeEventListener('keydown', handleKeyDown);
         };
-      }, [selectedTile, inputtedNumbers]);
+    }, [selectedTile, inputtedNumbers]);
 
 
     const handleTileClick = (row, column) => {
@@ -97,9 +100,7 @@ const Board = () => {
             setSelectedTile([row, column]);
             tile.focus();
         } 
-    };
-    
-    
+    };    
     
     return (
         <div className='Board-div'>
@@ -108,8 +109,7 @@ const Board = () => {
             <div id='board' className='Board-div'></div>
             <br></br>
             <Validator board={board} inputtedNumbers={inputtedNumbers} />
-            
-            </div>
+        </div>
     );
 };
 

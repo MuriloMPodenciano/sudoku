@@ -7,8 +7,7 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
-
-     const handleSubmit = async (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
         try {
