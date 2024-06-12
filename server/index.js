@@ -4,12 +4,16 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const sqlite3 = require('sqlite3').verbose();
 const fs = require('fs');
+const path = require('path');
 
 const app = express();
 const port = 8000;
 
 app.use(cors());
 app.use(express.json());
+
+const boardsFile = path.join(__dirname, 'boards.json');
+const boardsData = JSON.parse(fs.readFileSync(boardsFile, 'utf8'));
 
 const privateKey = fs.readFileSync('private.key', 'utf8');
 const publicKey = fs.readFileSync('public.key', 'utf8');
@@ -94,7 +98,9 @@ app.post('/login', (req, res) => {
 });
 
 app.get('/board', verifyToken, (req, res) => {
-  res.status(200).json({ code: 200, message: "Access granted to board" });
+  const randomIndex = Math.floor(Math.random() * boardsData.length);
+  const randomBoard = boardsData[randomIndex];
+  res.status(200).json({ code: 200, message: "Access granted to board", board: randomBoard });
 });
 
 app.listen(port,async () => {
