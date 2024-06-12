@@ -5,22 +5,40 @@ import Validator from './Validator';
 const Board = () => {
     const [inputtedNumbers, setInputtedNumbers] = useState(Array(9).fill("").map(() => Array(9).fill("")));
     const [selectedTile, setSelectedTile] = useState([0, 0]);
+    const [board, setBoard] = useState([]);
 
-    const [board, setBoard] = useState([
-        "-34678912",
-        "672195348",
-        "198342567",
-        "859761423",
-        "426853791",
-        "713924856",
-        "961537284",
-        "287419635",
-        "345286179"
-    ]);
+    useEffect(() => {
+        const fetchBoard = async () => {
+          try {
+            const token = localStorage.getItem('token');
+            const response = await fetch('http://localhost:8000/board', {
+              headers: {
+                Authorization: token
+              }
+            });
+    
+            const data = await response.json();
+            if (response.ok) {
+              setBoard(data.board);
+            } else {
+              alert(data.message);
+            }
+          } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred while fetching the board. Please try again.');
+          }
+        };
+    
+        fetchBoard();
+      }, []);
    
     useEffect(() => {
         const gameBoard = document.getElementById('board');
         gameBoard.innerHTML = ''; 
+        
+        if (board.length === 0) {
+            return; // Exit early if board is not yet fetched
+          }
 
         for (let row = 0; row < 9; row++) {
             for (let column = 0; column < 9; column++) {
