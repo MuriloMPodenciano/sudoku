@@ -14,6 +14,7 @@ const Board = () => {
         "81--45---"
     ]);
 
+    const [inputtedNumbers, setInputtedNumbers] = useState(Array(9).fill("").map(() => Array(9).fill("")));
     const [selectedTile, setSelectedTile] = useState([0, 0]);
 
 
@@ -25,13 +26,14 @@ const Board = () => {
             for (let column = 0; column < 9; column++) {
                 const tile = document.createElement("div");
                 tile.id = row.toString() + "-" + column.toString();
+                tile.tabIndex = 0;
 
             if (board[row][column] != "-" ){
                 tile.textContent = board[row][column];
                 tile.classList.add("tile-start"); 
-            }else {
-                tile.addEventListener("keydown", handleKeyDown);
-            }
+            }else if (inputtedNumbers[row][column] !== "") {
+                tile.textContent = inputtedNumbers[row][column];
+              }
             tile.addEventListener('click', () => handleTileClick(row, column));
 
             if (row === 2 || row === 5) {
@@ -49,16 +51,26 @@ const Board = () => {
             gameBoard.appendChild(tile);
             }
         }
-    }, [board, selectedTile]);
+    }, [board, selectedTile, inputtedNumbers]);
 
-    const handleKeyDown = (event) => {
-        const tile = document.getElementById(selectedTile[0].toString() + "-" + selectedTile[1].toString());
-        if (event.key >= 1 && event.key <= 9) {
-            tile.textContent = event.key;
-        } else if (event.key === "Backspace" || event.key === "Delete") {
-            tile.textContent = "";
-        }
-    }
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+          if (selectedTile) {
+            const [row, column] = selectedTile;
+            if (event.key >= '1' && event.key <= '9') {
+              const newInputtedNumbers = [...inputtedNumbers];
+              newInputtedNumbers[row][column] = event.key;
+              setInputtedNumbers(newInputtedNumbers);
+            }
+          }
+        };
+    
+        document.addEventListener('keydown', handleKeyDown);
+    
+        return () => {
+          document.removeEventListener('keydown', handleKeyDown);
+        };
+      }, [selectedTile, inputtedNumbers]);
 
 
     const handleTileClick = (row, column) => {
