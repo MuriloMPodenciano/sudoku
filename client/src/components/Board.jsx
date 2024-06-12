@@ -3,6 +3,9 @@ import './Board.css';
 import Validator from './Validator';
 
 const Board = () => {
+    const [inputtedNumbers, setInputtedNumbers] = useState(Array(9).fill("").map(() => Array(9).fill("")));
+    const [selectedTile, setSelectedTile] = useState([0, 0]);
+
     const [board, setBoard] = useState([
         "-34678912",
         "672195348",
@@ -14,11 +17,7 @@ const Board = () => {
         "287419635",
         "345286179"
     ]);
-
-    const [inputtedNumbers, setInputtedNumbers] = useState(Array(9).fill("").map(() => Array(9).fill("")));
-    const [selectedTile, setSelectedTile] = useState([0, 0]);
-
-
+   
     useEffect(() => {
         const gameBoard = document.getElementById('board');
         gameBoard.innerHTML = ''; 
