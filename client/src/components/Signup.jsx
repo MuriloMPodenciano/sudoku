@@ -18,7 +18,7 @@ const Signup = () => {
     return (
         <div className="Signup-container">
             <form className="Signup-form" onSubmit={handleSubmit}>
-                <h1 className="Signup-title">Registrar</h1>
+                <h1 className="Signup-title">Cadastro</h1>
                 <div>
                     <input
                         type="text"
@@ -47,7 +47,7 @@ const Signup = () => {
                 <div className="Signup-login">
                     <p>
                         <span>Já possui cadastro?</span>
-                        <a href='#'> Login</a>
+                        <a href='/login'> Login</a>
                     </p>
                 </div>
             </form>

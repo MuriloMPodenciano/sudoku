@@ -34,7 +34,7 @@ const Login = () => {
                 <div className="Login-signup">
                     <p>
                         <span>Não possui cadastro?</span>
-                        <a href='#'> Registrar</a>
+                        <a href='/register'> Registrar</a>
                     </p>
                 </div>
             </form>
