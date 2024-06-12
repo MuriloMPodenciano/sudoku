@@ -85,12 +85,13 @@ const Board = () => {
     
     
     return (
-        <div>
+        <div className='Board-div'>
             <h1>Sudoku</h1>
-            <hr></hr>
-            <div id='board'></div>
+            <hr className='Board-hr'></hr>
+            <div id='board' className='Board-div'></div>
             <br></br>
             <Validator board={board} inputtedNumbers={inputtedNumbers} />
+            
             </div>
     );
 };

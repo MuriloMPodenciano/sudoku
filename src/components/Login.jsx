@@ -11,14 +11,15 @@ const Login = () => {
     }
 
     return (
-        <div className="container">
-            <form onSubmit={handleSubmit}>
-                <h1>Login</h1>
+        <div className="Login-container">
+            <form className="Login-form" onSubmit={handleSubmit}>
+                <h1 className="Login-title">Login</h1>
                 <div>
                     <input
                         type="text"
                         placeholder='nome'
                         onChange={(event) => setUsername(event.target.value)}
+                        className="Login-input"
                     />
                 </div>
                 <div>
@@ -26,10 +27,11 @@ const Login = () => {
                         type="password"
                         placeholder='senha'
                         onChange={(event) => setPassword(event.target.value)}
+                        className="Login-input"
                     />
                 </div>
-                <button type="submit">Login</button>
-                <div className='signup'>
+                <button type="submit" className="Login-button">Login</button>
+                <div className="Login-signup">
                     <p>
                         <span>Não possui cadastro?</span>
                         <a href='#'> Registrar</a>
