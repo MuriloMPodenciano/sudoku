@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; 
 import "./Signup.css";
 
 const Signup = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -25,6 +27,7 @@ const Signup = () => {
             const data = await response.json();
             if (response.ok) {
                 alert(data.message);
+                navigate('/login');
             } else {
                 alert(data.message);
             }
