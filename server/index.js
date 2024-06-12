@@ -50,7 +50,7 @@ app.post('/register', (req, res) => {
       return res.status(500).json({ code: 500, message: "Internal server error" });
     }
     if (row) {
-      return res.status(400).json({ code: 400, message: "Username already exists" });
+      return res.status(409).json({ code: 409, message: "Username already exists" });
     }
 
     bcrypt.hash(password, 10, (err, hash) => {
@@ -63,7 +63,7 @@ app.post('/register', (req, res) => {
           return res.status(500).json({ code: 500, message: "Error saving user" });
         }
         
-        res.status(200).json({ code: 200, message: "User registered successfully" });
+        res.status(201).json({ code: 201, message: "User registered successfully" });
       });
     });
   });
@@ -80,7 +80,7 @@ app.post('/login', (req, res) => {
       return res.status(500).json({ code: 500, message: "Internal server error" });
     }
     if (!row) {
-      return res.status(400).json({ code: 400, message: "Invalid username or password" });
+      return res.status(401).json({ code: 401, message: "Invalid username or password" });
     }
 
     bcrypt.compare(password, row.password, (err, match) => {
@@ -88,7 +88,7 @@ app.post('/login', (req, res) => {
         return res.status(500).json({ code: 500, message: "Error comparing password" });
       }
       if (!match) {
-        return res.status(400).json({ code: 400, message: "Invalid username or password" });
+        return res.status(401).json({ code: 401, message: "Invalid username or password" });
       }
       const token = jwt.sign({ username: row.username }, privateKey, { algorithm: 'RS256', expiresIn: '1h' });
       res.status(200).json({ code: 200, message: "User logged in successfully", token });
