@@ -14,7 +14,7 @@ const Board = () => {
         "81--45---"
     ]);
 
-    const [selectedTile, setSelectedTile] = useState(null);
+    const [selectedTile, setSelectedTile] = useState([0, 0]);
 
 
     useEffect(() => {
@@ -49,7 +49,17 @@ const Board = () => {
             gameBoard.appendChild(tile);
             }
         }
-    }, [board]);
+    }, [board, selectedTile]);
+
+    const handleKeyDown = (event) => {
+        const tile = document.getElementById(selectedTile[0].toString() + "-" + selectedTile[1].toString());
+        if (event.key >= 1 && event.key <= 9) {
+            tile.textContent = event.key;
+        } else if (event.key === "Backspace" || event.key === "Delete") {
+            tile.textContent = "";
+        }
+    }
+
 
     const handleTileClick = (row, column) => {
         const tile = document.getElementById(row.toString() + "-" + column.toString());
