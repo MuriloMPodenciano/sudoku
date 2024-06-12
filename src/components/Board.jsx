@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import './Board.css';
+import Validator from './Validator';
 
 const Board = () => {
     const [board, setBoard] = useState([
-        "--74916-5",
-        "2---6-3-9",
-        "-----7-1-",
-        "-586----4",
-        "--3----9-",
-        "--62--187",
-        "9-4-7---2",
-        "67-83----",
-        "81--45---"
+        "-34678912",
+        "672195348",
+        "198342567",
+        "859761423",
+        "426853791",
+        "713924856",
+        "961537284",
+        "287419635",
+        "345286179"
     ]);
 
     const [inputtedNumbers, setInputtedNumbers] = useState(Array(9).fill("").map(() => Array(9).fill("")));
@@ -80,14 +81,17 @@ const Board = () => {
             tile.focus();
         } 
     };
-
+    
+    
     
     return (
         <div>
             <h1>Sudoku</h1>
             <hr></hr>
             <div id='board'></div>
-        </div>
+            <br></br>
+            <Validator board={board} inputtedNumbers={inputtedNumbers} />
+            </div>
     );
 };
 
