@@ -19,6 +19,22 @@ db.serialize(() => {
   db.run("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username TEXT NOT NULL, password TEXT NOT NULL)");
 });
 
+const verifyToken = (req, res, next) => {
+  const token = req.headers['authorization'];
+  if (!token) {
+    return res.status(403).json({ code: 403, message: "No token provided" });
+  }
+
+  jwt.verify(token, publicKey, { algorithms: ['RS256'] }, (err, decoded) => {
+    if (err) {
+      return res.status(401).json({ code: 401, message: "Failed to authenticate token" });
+    }
+
+    req.userId = decoded.id;
+    next();
+  });
+};
+
 app.post('/register', (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
@@ -71,10 +87,14 @@ app.post('/login', (req, res) => {
                 return res.status(400).json({ code: 400, message: "Invalid username or password" });
             }
 
-            const token = jwt.sign({ username: row.username }, privateKey, { algorithm: 'RS256', expiresIn: '1h' });
+            const token = jwt.sign({ username: row.username }, privateKey, { algorithm: 'RS256', expiresIn: '5m' });
             res.status(200).json({ code: 200, message: "User logged in successfully", token });
         });
     });
+});
+
+app.get('/board', verifyToken, (req, res) => {
+  res.status(200).json({ code: 200, message: "Access granted to board" });
 });
 
 app.listen(port,async () => {
